@@ -1,13 +1,4 @@
-require("dotenv").config();
-
-const Pool = require("pg").Pool;
-const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "postgres",
-  password: process.env.PASSWORD,
-  port: 5432,
-});
+const pool = require("../../pool")
 const getProducts = () => {
   return new Promise(function (resolve, reject) {
     pool.query("SELECT * FROM \"PRODUCT\" ORDER BY id ASC", (error, results) => {
