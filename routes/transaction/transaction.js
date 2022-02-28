@@ -1,4 +1,4 @@
-const pool = require("../../pool")
+const pool = require("../../pool").pool
 const getTransaction = () => {
     return new Promise(function (resolve, reject) {
         pool.query("SELECT * FROM \"TRANSACTION\" ORDER BY id ASC", (error, results) => {

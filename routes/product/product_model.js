@@ -1,4 +1,4 @@
-const pool = require("../../pool");
+const pool = require("../../pool").pool;
 const getProducts = () => {
   return new Promise(function (resolve, reject) {
     pool.query('SELECT * FROM "PRODUCT" ORDER BY id ASC', (error, results) => {
@@ -28,7 +28,7 @@ const getProductsById = (id) => {
 const createProduct = (body) => {
   return new Promise(function (resolve, reject) {
     pool.query(
-      `INSERT INTO \"PRODUCT\" (\"title\",\"price\",\"photoURL\",\"size\",\"categoryId\") VALUES (${body.title},${body.price},${body.photoURL},${body.size},${body.categoryId});
+      `INSERT INTO \"PRODUCT\" (\"title\",\"price\",\"photoURL\",\"size\",\"categoryId\") VALUES ('${body.title}',${body.price},'${body.photoURL}','${body.size}',${body.categoryId});
     `,
       (error, results) => {
         if (error) {
