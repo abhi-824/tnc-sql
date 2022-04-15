@@ -28,8 +28,7 @@ const getProductsById = (id) => {
 const createProduct = (body) => {
   return new Promise(function (resolve, reject) {
     pool.query(
-      `INSERT INTO \"PRODUCT\" (\"title\",\"price\",\"photoURL\",\"size\",\"categoryId\") VALUES ('${body.title}',${body.price},'${body.photoURL}','${body.size}',${body.categoryId});
-    `,
+      `INSERT INTO \"PRODUCT\" (\"title\",\"price\",\"photoURL\",\"size\",\"categoryId\") VALUES ('${body.title}',${body.price},'${body.photoURL}','${body.size}',${body.categoryId});`,
       (error, results) => {
         if (error) {
           console.log(error);

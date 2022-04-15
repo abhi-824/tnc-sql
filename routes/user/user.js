@@ -22,7 +22,20 @@ const getUserById = (id) => {
     });
 };
 
+const getOrdersByUserId= (id) => {
+    return new Promise(function (resolve, reject) {
+        pool.query(`SELECT * FROM "ORDER" INNER JOIN "PRODUCT" ON "ORDER"."productId"="PRODUCT".id WHERE "userId"=${id}`, (error, results) => {
+            if (error) {
+                console.log(error)
+                reject(error);
+            }
+            resolve(results.rows);
+        });
+    });
+};
+
 module.exports = {
     getUser,
-    getUserById
+    getUserById,
+    getOrdersByUserId
 };
