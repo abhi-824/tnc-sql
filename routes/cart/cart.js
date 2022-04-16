@@ -39,9 +39,26 @@ const getProductsFromCartByUserId = (id) => {
     );
   });
 };
+const postProductByUserId = (userId, productId) => {
+  return new Promise(function (resolve, reject) {
+    console.log({userId,productId})
+    pool.query(
+      ` INSERT INTO "ProductCart" VALUES(${productId},(SELECT "id" FROM "CART" WHERE "userId"=${userId}));`,
+      (error, results) => {
+        if (error) {
+          console.log(error);
+          reject(error);
+        }
+        if(!results)resolve([]);
+        else resolve(results.rows);
+      }
+    );
+  });
+};
 
 module.exports = {
   getCart,
   getCartById,
   getProductsFromCartByUserId,
+  postProductByUserId
 };

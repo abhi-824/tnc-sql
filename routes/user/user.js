@@ -17,7 +17,7 @@ const getUserById = (id) => {
                 console.log(error)
                 reject(error);
             }
-            resolve(results.rows);
+            resolve(results.rows[0]);
         });
     });
 };
