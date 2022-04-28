@@ -1,0 +1,1 @@
+ALTER TABLE "ProductCart" ADD COLUMN IF NOT EXISTS quantity INTEGER;

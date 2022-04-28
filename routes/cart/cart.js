@@ -39,20 +39,28 @@ const getProductsFromCartByUserId = (id) => {
     );
   });
 };
-const postProductByUserId = (userId, productId) => {
-  return new Promise(function (resolve, reject) {
+const postProductByUserId = (userId, productId,quantity) => {
+  return new Promise(async function (resolve, reject) {
     console.log({userId,productId})
-    pool.query(
-      ` INSERT INTO "ProductCart" VALUES(${productId},(SELECT "id" FROM "CART" WHERE "userId"=${userId}));`,
-      (error, results) => {
-        if (error) {
-          console.log(error);
-          reject(error);
+    const result=await pool.query(`SELECT * FROM \"ProductCart\" WHERE \"productId\"=${productId} AND "cartId"=(SELECT "id" FROM "CART" WHERE "userId"=${userId})`)
+    console.log(result.rows)
+    if(result.rows.length==0)
+    {
+      pool.query(
+        ` INSERT INTO "ProductCart" VALUES(${productId},(SELECT "id" FROM "CART" WHERE "userId"=${userId}),${quantity});`,
+        (error, results) => {
+          if (error) {
+            console.log(error);
+            reject(error);
+          }
+          if(!results)resolve([]);
+          else resolve(results.rows);
         }
-        if(!results)resolve([]);
-        else resolve(results.rows);
-      }
-    );
+      );
+    }
+    else{
+      reject({status:400,msg:"Duplicate Entry founded"})
+    }
   });
 };
 
