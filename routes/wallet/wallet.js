@@ -22,7 +22,20 @@ const getWalletById = (id) => {
     });
 };
 
+const getWalletByUserId=(id)=>{
+    return new Promise(function (resolve, reject) {
+        pool.query(`SELECT * FROM \"WALLET\" WHERE \"userId\"=${id}`, (error, results) => {
+            if (error) {
+                console.log(error)
+                reject(error);
+            }
+            resolve(results.rows);
+        });
+    });
+}
+
 module.exports = {
     getWallet,
-    getWalletById
+    getWalletById,
+    getWalletByUserId
 };

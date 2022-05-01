@@ -27,10 +27,11 @@ const getCartById = (id) => {
 
 const getProductsFromCartByUserId = (id) => {
   return new Promise(function (resolve, reject) {
+    if(!id)reject("Id not defined")
     pool.query(
       `SELECT * from "ProductCart" INNER JOIN "PRODUCT" ON "ProductCart"."productId"="PRODUCT".id WHERE "ProductCart"."cartId"=(SELECT "id" from "CART" WHERE "userId"=${id});`,
       (error, results) => {
-        if (error) {
+        if (error||!results) {
           console.log(error);
           reject(error);
         }

@@ -24,11 +24,12 @@ const getUserById = (id) => {
 
 const getOrdersByUserId= (id) => {
     return new Promise(function (resolve, reject) {
-        pool.query(`SELECT * FROM "ORDER" INNER JOIN "PRODUCT" ON "ORDER"."productId"="PRODUCT".id WHERE "userId"=${id}`, (error, results) => {
+        pool.query(`SELECT * FROM "ORDER" INNER JOIN "PRODUCT" ON "ORDER"."productId"="PRODUCT".id WHERE "ORDER"."userId"=${id}`, (error, results) => {
             if (error) {
                 console.log(error)
                 reject(error);
             }
+            // console.log(results)
             resolve(results.rows);
         });
     });
@@ -60,11 +61,12 @@ const updateUser=(id,{email, password,address, mobile})=>{
 
 const viewUserProducts=(id)=>{
     return new Promise(function(resolve,reject){
-        pool.query(`SELECT * from "PRODUCT" INNER JOIN "USER" ON "PRODUCT"."userId"="USER"."id" where "USER".id=${id}`, (error, results) => {
+        pool.query(`SELECT * from "PRODUCT" WHERE "userId"=${id}`, (error, results) => {
             if (error) {
                 console.log(error)
                 reject(error);
             }
+            console.log(results.rows)
             resolve(results.rows);  
         });
     })
