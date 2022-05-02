@@ -64,10 +64,26 @@ const postProductByUserId = (userId, productId,quantity) => {
     }
   });
 };
-
+const removeProductByUserId=(userId,productId)=>{
+  return new Promise(function (resolve, reject) {
+    if(!userId)reject("Id not defined")
+    if(!productId)reject("Id not defined")
+    pool.query(
+      `DELETE from "ProductCart" WHERE "ProductCart"."cartId"=(SELECT "id" from "CART" WHERE "userId"=${userId}) AND "ProductCart"."productId"=${productId};`,
+      (error, results) => {
+        if (error||!results) {
+          console.log(error);
+          reject(error);
+        }
+        resolve(results.rows);
+      }
+    );
+  });
+}
 module.exports = {
   getCart,
   getCartById,
   getProductsFromCartByUserId,
-  postProductByUserId
+  postProductByUserId,
+  removeProductByUserId
 };
