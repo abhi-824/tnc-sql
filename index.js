@@ -212,6 +212,7 @@ app.get("/auth/:token", (req, res) => {
   });
 });
 app.post("/register", (req, res) => {
+  console.log(req.body)
   user_model
     .createUser(req.body)
     .then((response) => {
