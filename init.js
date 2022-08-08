@@ -10,7 +10,7 @@ const config = {
   host: params.hostname,
   port: params.port,
   database: params.pathname.split("/")[1],
-  ssl: true
+  ssl: { rejectUnauthorized: false }
 };
 
 const pool = new Pool(config);
@@ -18,7 +18,7 @@ const pool = new Pool(config);
 
 var fs = require('fs');
 
-var sql = fs.readFileSync('init.sql').toString();
+var sql = fs.readFileSync('seed/seedProduct.sql').toString();
 pool.connect(function(err, client, done){
     if(err){
         console.log('error: ', err);
