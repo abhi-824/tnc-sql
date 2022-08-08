@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 const express = require("express");
 const app = express();
-const port = 3001;
-
+const port = 3001 || process.env.PORT;
+const cors=require('cors')
 const product_model = require("./routes/product/product_model");
 const cart_model = require("./routes/cart/cart");
 const user_model = require("./routes/user/user");
@@ -10,9 +10,9 @@ const order_model = require("./routes/order/order");
 const wallet_model = require("./routes/wallet/wallet");
 const bodyParser = require("body-parser");
 
+app.use(cors('*'))
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
   res.setHeader(
     "Access-Control-Allow-Headers",
