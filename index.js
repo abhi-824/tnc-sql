@@ -10,7 +10,7 @@ const order_model = require("./routes/order/order");
 const wallet_model = require("./routes/wallet/wallet");
 const bodyParser = require("body-parser");
 
-app.use(cors())
+app.use(cors("*"))
 app.use(bodyParser.json());
 app.get("/", (req, res) => {
   res.status(200).send("Hello World!");
