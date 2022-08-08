@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const express = require("express");
 const app = express();
-const port = 3001 || process.env.PORT;
+const port =  process.env.PORT ||3001;
 const cors=require('cors')
 const product_model = require("./routes/product/product_model");
 const cart_model = require("./routes/cart/cart");
