@@ -190,6 +190,17 @@ app.get("/user/wallet/:id", (req, res) => {
       res.status(error.status ? error.status : 500).send(error);
     });
 });
+app.get("/wallets/update",(req,res)=>{
+  wallet_model
+    .updateWallets()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(error.status ? error.status : 500).send(error);
+    });
+})
 app.get("/auth/:token", (req, res) => {
   if (!req.params.token) return res.status(400).json({ data: "Invalid Id;" });
   jwt.verify(req.params.token, "privatekey", (err, authorizedData) => {

@@ -33,9 +33,21 @@ const getWalletByUserId=(id)=>{
         });
     });
 }
+const updateWallets=()=>{
+    return new Promise(function (resolve, reject) {
+        pool.query(`UPDATE \"WALLET\" SET \"amount\"=2000`, (error, results) => {
+            if (error) {
+                console.log(error)
+                reject(error);
+            }
+            resolve(results.rows);
+        });
+    });
+}
 
 module.exports = {
     getWallet,
     getWalletById,
-    getWalletByUserId
+    getWalletByUserId,
+    updateWallets
 };
